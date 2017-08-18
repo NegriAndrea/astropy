@@ -258,7 +258,7 @@ class FixedWidthData(basic.BasicData):
             if self.header.start_line is not None:
                 col.width = max(col.width, len(col.info.name))
                 if self.header.unit_line is not None:
-                    col.width = max(col.width, len(str(col.unit)))
+                    col.width = max(col.width, len(str(col.unit)), len(self.cols)+2)
 
         widths = [col.width for col in self.cols]
 
@@ -267,6 +267,8 @@ class FixedWidthData(basic.BasicData):
                                             widths))
             if self.header.unit_line is not None:
                 lines.append(self.splitter.join(['' if col.unit is None else str(col.unit) for col in self.cols], widths))
+                lines.append(self.splitter.join(['('+str(i)+')' for i in
+                    range(len(self.cols)+1)], widths))
 
 
         if self.header.position_line is not None:
