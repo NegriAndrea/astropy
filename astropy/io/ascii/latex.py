@@ -156,6 +156,8 @@ class LatexHeader(core.BaseHeader):
             units.update(self.latex['units'])
         if units:
             lines.append(self.splitter.join([units.get(name, ' ') for name in self.colnames]))
+        lines.append(self.splitter.join(['(' + str(i) + ')' for i in range(1,
+            len(self.colnames)+1)]))
         add_dictval_to_list(self.latex, 'header_end', lines)
 
 
